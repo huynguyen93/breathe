@@ -9,7 +9,7 @@ function App() {
   const [activeExercise, setActiveExercise] = React.useState(null);
 
   return (
-    <Container maxW={'lg'} display="flex" flexDirection="column" height="100%" pt={5}>
+    <Container maxW={'lg'} display="flex" flexDirection="column" p={5} minHeight="100%">
       <Box>
         <Center>
           <a
