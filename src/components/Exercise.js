@@ -176,6 +176,9 @@ function Exercise(props) {
               <Box paddingBlock={100}>
                 <Text fontSize="3rem">{period.label}</Text>
                 <Text fontSize="3rem">{(currentPeriodStartedAt + period.seconds) - (elapsed)}</Text>
+                {period.note && (
+                  <Text mt={5} fontSize="1rem" color="gray.300">{period.note}</Text>
+                )}
               </Box>
             </Box>
           </ScaleFade>

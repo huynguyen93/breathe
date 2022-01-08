@@ -1,187 +1,99 @@
+const labels = {
+  in: 'Breathe in',
+  out: 'Breathe out',
+  hold: 'Hold your breath',
+};
+
+const sounds = {
+  in: 'in.mp3',
+  out: 'out.mp3',
+  hold: 'hold.mp3',
+};
+
+const noteOutSh = 'Breathe out while making "sh" sound.';
+const noteOutF1 = 'Breathe out while making short "f" sound many times.';
+const noteOutF2 = 'Breathe out while making 1 long "f" sound.';
+
 export const exercises = [
   {
     label: 'Relaxation breathing',
-    desc: 'Relax',
     periods: [
-      {
-        seconds: 4,
-        label: 'Breathe in',
-      },
-      {
-        seconds: 7,
-        label: 'Hold your breath',
-      },
-      {
-        seconds: 8,
-        label: 'Breathe out',
-      },
+      {seconds: 4, label: labels.in, sound: sounds.in},
+      {seconds: 7, label: labels.hold, sound: sounds.hold},
+      {seconds: 8, label: labels.out, sound: sounds.out, note: noteOutSh},
     ],
   },
   {
     label: 'Exercise 1',
-    desc: 'Relax',
     periods: [
-      {
-        seconds: 4,
-        label: 'Breathe in',
-      },
-      {
-        seconds: 8,
-        label: 'Breathe out',
-      },
+      {seconds: 4, label: labels.in, sound: sounds.in},
+      {seconds: 8, label: labels.out, sound: sounds.out, note: noteOutSh},
     ],
   },
   {
     label: 'Exercise 2',
-    desc: 'Relax',
     periods: [
-      {
-        seconds: 4,
-        label: 'Breathe in',
-      },
-      {
-        seconds: 4,
-        label: 'Hold your breath',
-      },
-      {
-        seconds: 4,
-        label: 'Breathe out',
-      },
-      {
-        seconds: 4,
-        label: 'Hold your breath',
-      },
+      {seconds: 4, label: labels.in, sound: sounds.in},
+      {seconds: 4, label: labels.hold, sound: sounds.hold},
+      {seconds: 4, label: labels.out, sound: sounds.out, note: noteOutSh},
+      {seconds: 4, label: labels.hold, sound: sounds.hold},
     ],
   },
   {
     label: 'Exercise 3',
-    desc: 'Relax',
     periods: [
-      {
-        seconds: 4,
-        label: 'Breathe in',
-      },
-      {
-        seconds: 4,
-        label: 'Breathe out',
-      },
-      {
-        seconds: 4,
-        label: 'Breathe out',
-      },
-      {
-        seconds: 4,
-        label: 'Hold your breath',
-      },
+      {seconds: 4, label: labels.in, sound: sounds.in},
+      {seconds: 4, label: labels.out, sound: sounds.out, note: noteOutF1},
+      {seconds: 4, label: labels.out, sound: sounds.out, note: noteOutF2},
+      {seconds: 4, label: labels.hold, sound: sounds.hold},
     ],
   },
   {
     label: 'Exercise 4',
-    desc: 'Relax',
     periods: [
-      {
-        seconds: 4,
-        label: 'Breathe in',
-      },
-      {
-        seconds: 4,
-        label: 'Hold your breath',
-      },
-      {
-        seconds: 4,
-        label: 'Breathe in',
-      },
-      {
-        seconds: 8,
-        label: 'Breathe out',
-      },
+      {seconds: 4, label: labels.in, sound: sounds.in},
+      {seconds: 4, label: labels.hold, sound: sounds.hold},
+      {seconds: 4, label: labels.in, sound: sounds.in},
+      {seconds: 8, label: labels.out, sound: sounds.out, note: noteOutSh},
     ],
   },
   {
     label: 'Exercise 5',
-    desc: 'Relax',
     periods: [
-      {
-        seconds: 4,
-        label: 'Breathe in',
-      },
-      {
-        seconds: 4,
-        label: 'Hold your breath',
-      },
-      {
-        seconds: 4,
-        label: 'Breathe in',
-      },
-      {
-        seconds: 4,
-        label: 'Hold your breath',
-      },
-      {
-        seconds: 4,
-        label: 'Breathe in',
-      },
-      {
-        seconds: 8,
-        label: 'Breathe out',
-      },
+      {seconds: 4, label: labels.in, sound: sounds.in},
+      {seconds: 4, label: labels.hold, sound: sounds.hold},
+      {seconds: 4, label: labels.in, sound: sounds.in},
+      {seconds: 4, label: labels.hold, sound: sounds.hold},
+      {seconds: 4, label: labels.in, sound: sounds.in},
+      {seconds: 8, label: labels.out, sound: sounds.out, note: noteOutSh},
     ],
   },
   {
     label: 'Power breathing 1',
-    desc: 'Relax',
     periods: [
-      {
-        seconds: 4,
-        label: 'Breathe in',
-      },
-      {
-        seconds: 4,
-        label: 'Breathe out',
-      },
+      {seconds: 4, label: labels.in, sound: sounds.in},
+      {seconds: 4, label: labels.out, sound: sounds.out},
     ],
   },
   {
     label: 'Power breathing 2',
-    desc: 'Relax',
     periods: [
-      {
-        seconds: 3,
-        label: 'Breathe in',
-      },
-      {
-        seconds: 3,
-        label: 'Breathe out',
-      },
+      {seconds: 3, label: labels.in, sound: sounds.in},
+      {seconds: 3, label: labels.out, sound: sounds.out},
     ],
   },
   {
     label: 'Power breathing 3',
-    desc: 'Relax',
     periods: [
-      {
-        seconds: 2,
-        label: 'Breathe in',
-      },
-      {
-        seconds: 2,
-        label: 'Breathe out',
-      },
+      {seconds: 2, label: labels.in, sound: sounds.in},
+      {seconds: 2, label: labels.out, sound: sounds.out},
     ],
   },
   {
     label: 'Power breathing 4',
-    desc: 'Relax',
     periods: [
-      {
-        seconds: 1,
-        label: 'Breathe in',
-
-      },
-      {
-        seconds: 1,
-        label: 'Breathe out',
-      },
+      {seconds: 1, label: labels.in, sound: sounds.in},
+      {seconds: 1, label: labels.out, sound: sounds.out},
     ],
   },
 ];
