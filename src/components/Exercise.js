@@ -37,7 +37,7 @@ function Exercise(props) {
     currentPeriodStartedAt: initialPrepareSeconds + 1,
     periodIndex: 0,
     currentRound: 1,
-    prepareSeconds: initialPrepareSeconds + 1,
+    prepareSeconds: initialPrepareSeconds,
   }
 
   const [sounds, setSounds] = React.useState({
