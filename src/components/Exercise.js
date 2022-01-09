@@ -9,12 +9,18 @@ import {
   ScaleFade,
 } from '@chakra-ui/react';
 import React from 'react';
+import {Howl} from 'howler';
 import {useStopwatch} from 'react-timer-hook';
 
 const messagesCache = {};
 
 function Exercise(props) {
-  const {exercise, handleBtnHome, initialPrepareSeconds} = props;
+  const {
+    exercise,
+    handleBtnHome,
+    initialPrepareSeconds,
+    audioFolder,
+  } = props;
 
   const {
     seconds,
@@ -24,7 +30,7 @@ function Exercise(props) {
     start,
     pause,
     reset,
-  } = useStopwatch({ autoStart: true });
+  } = useStopwatch({ autoStart: false });
 
   const initialState = {
     elapsed: 0,
@@ -34,6 +40,12 @@ function Exercise(props) {
     prepareSeconds: initialPrepareSeconds + 1,
   }
 
+  const [sounds, setSounds] = React.useState({
+    loaded: false,
+    in: null,
+    out: null,
+    hold: null,
+  });
   const [state, setState] = React.useState(initialState);
 
   const {
@@ -72,6 +84,31 @@ function Exercise(props) {
   }
 
   React.useEffect(() => {
+    const soundIn = new Howl({src: `/sound/${audioFolder}/in.mp3`});
+    const soundOut = new Howl({src: `/sound/${audioFolder}/out.mp3`});
+    const soundHold = new Howl({src: `/sound/${audioFolder}/hold.mp3`});
+
+    const interval = setInterval(() => {
+      if (soundIn.state() === 'loaded' && soundOut.state() === 'loaded' && soundHold.state() === 'loaded') {
+        clearInterval(interval);
+
+        setSounds({
+          loaded: true,
+          in: soundIn,
+          out: soundOut,
+          hold: soundHold,
+        });
+      }
+    }, 300);
+  }, []);
+
+  React.useEffect(() => {
+    if (sounds.loaded) {
+      start();
+    }
+  }, [sounds.loaded]);
+
+  React.useEffect(() => {
     setState((prev) => ({...prev, elapsed: prev.elapsed + 1}));
   }, [seconds]);
 
@@ -101,19 +138,14 @@ function Exercise(props) {
 
   React.useEffect(() => {
     if (prepareSeconds === 0) {
-      if (!messagesCache[period.label]) {
-        const msg = new SpeechSynthesisUtterance();
-        msg.text = period.label;
-        msg.rate = 0.6;
-
-        messagesCache[period.label] = msg;
-      }
-
-      window.speechSynthesis.speak(messagesCache[period.label])
+      sounds[period.sound].play();
     }
   }, [periodIndex, prepareSeconds]);
 
   React.useEffect(() => {
+    if (!sounds.loaded) {
+      return;
+    }
     const handleKeySpacePressed = (event) => {
       if (event.key === ' ') {
         if (isRunning) {
@@ -163,35 +195,42 @@ function Exercise(props) {
         />
         <Text>{exercise.label}</Text>
       </Center>
-      <Box display="flex" flexDirection="column" alignItems="center">
-        {isPreparing && (
-          <Box textAlign="center" paddingBlock={100}>
-            <Text fontSize="3rem">Get ready!</Text>
-            <Text fontSize="3rem">{prepareSeconds}</Text>
-          </Box>
-        )}
-        {!isPreparing && (
-          <ScaleFade in={true} key={periodIndex} initialScale={0.8}>
-            <Box textAlign="center">
-              <Box paddingBlock={100}>
-                <Text fontSize="3rem">{period.label}</Text>
-                <Text fontSize="3rem">{(currentPeriodStartedAt + period.seconds) - (elapsed)}</Text>
-                {period.note && (
-                  <Text mt={5} fontSize="1rem" color="gray.300">{period.note}</Text>
-                )}
-              </Box>
+      {!sounds.loaded && (
+        <Center display="flex" alignItems="center">
+          <Text>Loading...</Text>
+        </Center>
+      )}
+      {sounds.loaded && (
+        <Box display="flex" flexDirection="column" alignItems="center">
+          {isPreparing && (
+            <Box textAlign="center" paddingBlock={100}>
+              <Text fontSize="3rem">Get ready!</Text>
+              <Text fontSize="3rem">{prepareSeconds}</Text>
             </Box>
-          </ScaleFade>
-        )}
-        <Box mt={10}>
-          <Text color="gray.500">
-            Round: {currentRound} · Time: {hoursString} {minutesString} {secondsString}
-          </Text>
+          )}
+          {!isPreparing && (
+            <ScaleFade in={true} key={periodIndex} initialScale={0.8}>
+              <Box textAlign="center">
+                <Box paddingBlock={100}>
+                  <Text fontSize="3rem">{period.label}</Text>
+                  <Text fontSize="3rem">{(currentPeriodStartedAt + period.seconds) - (elapsed)}</Text>
+                  {period.note && (
+                    <Text mt={5} fontSize="1rem" color="gray.300">{period.note}</Text>
+                  )}
+                </Box>
+              </Box>
+            </ScaleFade>
+          )}
+          <Box mt={10}>
+            <Text color="gray.500">
+              Round: {currentRound} · Time: {hoursString} {minutesString} {secondsString}
+            </Text>
+          </Box>
+          <Box mt={10}>
+            {controls}
+          </Box>
         </Box>
-        <Box mt={10}>
-          {controls}
-        </Box>
-      </Box>
+      )}
     </Container>
   );
 }

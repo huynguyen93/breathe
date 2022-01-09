@@ -1,5 +1,16 @@
+import {SettingsIcon} from '@chakra-ui/icons';
 import React from 'react';
-import {Button, Center, Heading, Grid, GridItem, Box, Text} from '@chakra-ui/react';
+import {Button, Center, Heading, Grid, GridItem, Box, Text, FormControl, FormLabel} from '@chakra-ui/react';
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+} from '@chakra-ui/react';
+import { Select } from '@chakra-ui/react';
 import { Container } from '@chakra-ui/react';
 import SlickComment from '@slickcomment/slickcomment-react';
 import Exercise from './components/Exercise';
@@ -7,6 +18,8 @@ import {exercises} from './constants';
 
 function App() {
   const [activeExercise, setActiveExercise] = React.useState(null);
+  const [audioFolder, setAudioFolder] = React.useState('salli');
+  const [openSettings, setOpenSettings] = React.useState(false);
 
   return (
     <Container maxW={'lg'} display="flex" flexDirection="column" p={5} minHeight="100%">
@@ -48,10 +61,37 @@ function App() {
             exercise={activeExercise}
             handleBtnHome={() => setActiveExercise(null)}
             initialPrepareSeconds={3}
+            audioFolder={audioFolder}
           />
         )}
         {!activeExercise && (
-          <Box mt={20}>
+          <Box mt={10}>
+            <Box mb={10}>
+              <Center>
+                <Button leftIcon={<SettingsIcon />} variant="ghost" onClick={() => setOpenSettings(true)}>
+                  Settings
+                </Button>
+              </Center>
+              <Modal isOpen={openSettings} onClose={() => setOpenSettings(false)}>
+                <ModalOverlay />
+                <ModalContent>
+                  <ModalHeader>Settings</ModalHeader>
+                  <ModalCloseButton />
+                  <ModalBody>
+                    <Box mb={10}>
+                      <FormControl>
+                        <FormLabel>Voice</FormLabel>
+                        <Select value={audioFolder} onChange={(e) => setAudioFolder(e.target.value)}>
+                          <option value="salli">English (Salli - US)</option>
+                          <option value="joey">English (Joey - US)</option>
+                          <option value="huy">Vietnamese (Huy)</option>
+                        </Select>
+                      </FormControl>
+                    </Box>
+                  </ModalBody>
+                </ModalContent>
+              </Modal>
+            </Box>
             <Box mb={5}>
               <hr/>
             </Box>

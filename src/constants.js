@@ -4,10 +4,10 @@ const labels = {
   hold: 'Hold your breath',
 };
 
-const sounds = {
-  in: 'in.mp3',
-  out: 'out.mp3',
-  hold: 'hold.mp3',
+export const sounds = {
+  in: 'in',
+  out: 'out',
+  hold: 'hold',
 };
 
 const noteOutSh = 'Breathe out while making "sh" sound.';
