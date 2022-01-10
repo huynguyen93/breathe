@@ -20,7 +20,7 @@ export const exercises = [
     periods: [
       {seconds: 4, label: labels.in, sound: sounds.in},
       {seconds: 7, label: labels.hold, sound: sounds.hold},
-      {seconds: 8, label: labels.out, sound: sounds.out, note: noteOutSh},
+      {seconds: 8, label: labels.out, sound: sounds.out},
     ],
   },
   {

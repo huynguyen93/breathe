@@ -110,7 +110,9 @@ function App() {
       <Box mt={10}>
         <hr/>
         <Text color="gray.500" size="0.9rem" mt={5}>
-          😊 created by <a href="https://khoahuy.com">khoahuy.com</a>
+          Created by <a href="https://khoahuy.com">khoahuy.com 😊</a>
+          {' · '}
+          <a href="https://github.com/huynguyen93/breathe">github</a>
         </Text>
       </Box>
     </Container>
