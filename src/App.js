@@ -94,7 +94,20 @@ function App() {
             <Box mb={5}>
               <hr/>
             </Box>
-            <Heading size="md" mb={3}>Comments</Heading>
+            <Heading size="md" mb={3}>
+              {'Comments '}
+              <SlickComment.CommentCount
+                config={{
+                  communityId: 'yU5Dye30e1',
+                  pageId: 'breathe',
+                  translations: {
+                    'zero': '(0)',
+                    'one': '(1)',
+                    'many': '({{count}})',
+                  },
+                }}
+              />
+            </Heading>
             <SlickComment.WidgetDiscussion
               config={{
                 communityId: 'yU5Dye30e1',

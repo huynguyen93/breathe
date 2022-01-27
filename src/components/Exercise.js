@@ -12,8 +12,6 @@ import React from 'react';
 import {Howl} from 'howler';
 import {useStopwatch} from 'react-timer-hook';
 
-const messagesCache = {};
-
 function Exercise(props) {
   const {
     exercise,
